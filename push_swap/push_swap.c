@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/04 21:10:38 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/18 00:35:30 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,44 +63,25 @@ int	ft_atoi(const char *str)
 
 void push_all(int argc, char **argv, t_stack *stack)
 {
-    t_stack *temp_stack;
     int     i;
-    int     num;
 
-    temp_stack = stack;
     i = 1;
     while(i < argc)
     {
-        temp_stack->next = (t_stack *)malloc(sizeof(stack));
-        temp_stack->next->elem = ft_atoi(argv[i]);
-        temp_stack->next->next = 0;
-        temp_stack = temp_stack->next;
-        ++i;
+        push(stack, ft_atoi(argv[i]));
+		++i;
     }
 }
 
 #include<stdio.h>
 int main(int argc, char **argv)
 {
-    t_stack *a;
-    t_stack *b;
+	t_stacks	*stacks;
 
-    err_name(argc, argv);
-    a = init_stack();
-    b = init_stack();
-    push_all(argc, argv, a);
-
-    command_swap(a);
-    push(b, 777);
-    command_push(a, b);
-	command_rotate(a);
-	command_reverse_rotate(a);
-    t_stack *temp_a = a->next;
-    while(temp_a)
-    {
-        printf("%d\n", temp_a->elem);
-        temp_a = temp_a->next;    
-    }
+	stacks = (t_stacks *)malloc(sizeof(stacks));
+	stacks->stack_a = init_stack();
+	stacks->stack_b = init_stack();
+	push_all(argc, argv, stacks->stack_a);
 }
 
 //argc = 1이면, 입력된 값 없음, 프로그램 그대로 종료
