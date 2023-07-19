@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:03:05 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/17 19:36:50 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/18 20:01:51 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include"ft_printf/ft_printf.h"
+#include"libft/libft.h"
 
 typedef struct s_node
 {
@@ -37,6 +38,7 @@ typedef struct s_stacks
 	t_stack	*stack_b;
 } t_stacks;
 
+//stack.c
 t_stack	*init_stack();
 void	push(t_stack *stack, int new_elem);
 void	push_back(t_stack *stack, int new_elem);
@@ -44,6 +46,7 @@ int		pop(t_stack *stack);
 int		pop_back(t_stack *stack);
 void	free_stack(t_stack *stack);
 
+//command.c
 void	command_swap(t_stack *stack);
 void	command_push(t_stack *stack1, t_stack *stack2);
 void	command_rotate(t_stack *stack);
