@@ -6,24 +6,24 @@
 /*   By: soojoo <shjoo820@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:48:57 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/17 20:20:45 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/19 16:02:45 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"push_swap.h"
 
-t_stack	*init_stack()
+t_stack	*init_stack(void)
 {
-    t_stack *output;
+	t_stack	*output;
 	t_node	*head;
 	t_node	*tail;
 
-    head = (t_node *)malloc(sizeof(t_node));
+	head = (t_node *)malloc(sizeof(t_node));
 	tail = (t_node *)malloc(sizeof(t_node));
-    head->elem = 0;
+	head->elem = 0;
 	head->flag = 1;
 	head->prev = 0;
-    head->next = tail;
+	head->next = tail;
 	tail->elem = 0;
 	tail->flag = 1;
 	tail->prev = head;
@@ -31,7 +31,7 @@ t_stack	*init_stack()
 	output = (t_stack *)malloc(sizeof(t_stack));
 	output->head = head;
 	output->tail = tail;
-    return (output);
+	return (output);
 }
 
 void	push(t_stack *stack, int new_elem)
@@ -70,7 +70,7 @@ int	pop(t_stack *stack)
 	int		output;
 
 	output = 0;
-	if(stack->head->next != stack->tail)
+	if (stack->head->next != stack->tail)
 	{
 		temp = stack->head->next;
 		stack->head->next = stack->head->next->next;
@@ -87,7 +87,7 @@ int	pop_back(t_stack *stack)
 	int		output;
 
 	output = 0;
-	if(stack->tail->prev != stack->head)
+	if (stack->tail->prev != stack->head)
 	{
 		temp = stack->tail->prev;
 		stack->tail->prev = stack->tail->prev->prev;
@@ -104,7 +104,7 @@ void	free_stack(t_stack *stack)
 	t_node	*temptemp;
 
 	temp = stack->head;
-	while(temp)
+	while (temp)
 	{
 		temptemp = temp;
 		temp = temp->next;
@@ -112,39 +112,3 @@ void	free_stack(t_stack *stack)
 	}
 	free(stack);
 }
-
-/*
-#include<stdio.h>
-int main()
-{
-	t_stacks	*stacks;
-	t_node		*temp;
-
-	stacks = (t_stacks *)malloc(sizeof(t_stacks));
-	stacks->stack_a = init_stack();
-	stacks->stack_b = init_stack();
-	push(stacks->stack_a, 2);
-	push_back(stacks->stack_a, 3);
-	push(stacks->stack_a, 1);
-	temp  = stacks->stack_a->head;
-	while(temp)
-	{
-		if(temp->flag == 0)
-			printf("%d ", temp->elem);
-		temp = temp->next;
-	}
-	printf("\n");
-	printf("%d ", pop(stacks->stack_a));
-	printf("%d ", pop_back(stacks->stack_a));
-	printf("%d ", pop(stacks->stack_a));
-	printf("%d ", pop_back(stacks->stack_a));
-	printf("\n");
-	while(temp)
-	{
-		if(temp->flag == 0)
-			printf("%d ", temp->elem);
-		temp = temp->next;
-	}
-}
-*/
-

@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soojoo <shjoo820@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 16:49:25 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 16:09:47 by soojoo           ###   ########.fr       */
+/*   Created: 2022/12/24 01:37:40 by soojoo            #+#    #+#             */
+/*   Updated: 2023/01/17 02:24:40 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	quick_sort(t_stack *stack1, t_stack *stack2)
-{
-	int	pivot;
+#include"libft.h"
 
-	pivot = stack1->next->elem;
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*t_s;
+	unsigned char	t_c;
+	size_t			i;
+
+	t_s = (unsigned char *)s;
+	t_c = (unsigned char)c;
+	i = 0;
+	while (i < n)
+	{
+		t_s[i] = t_c;
+		++i;
+	}
+	return (s);
 }

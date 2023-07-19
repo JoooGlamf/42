@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soojoo <shjoo820@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 16:49:25 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 16:09:47 by soojoo           ###   ########.fr       */
+/*   Created: 2022/12/23 23:54:37 by soojoo            #+#    #+#             */
+/*   Updated: 2023/01/03 23:35:17 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	quick_sort(t_stack *stack1, t_stack *stack2)
-{
-	int	pivot;
+#include "libft.h"
 
-	pivot = stack1->next->elem;
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
 }

@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soojoo <shjoo820@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 16:49:25 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 16:09:47 by soojoo           ###   ########.fr       */
+/*   Created: 2022/12/25 03:40:14 by soojoo            #+#    #+#             */
+/*   Updated: 2022/12/25 03:50:07 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	quick_sort(t_stack *stack1, t_stack *stack2)
-{
-	int	pivot;
+#include"libft.h"
 
-	pivot = stack1->next->elem;
+int	ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
 }

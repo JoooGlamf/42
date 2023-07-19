@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soojoo <shjoo820@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 16:49:25 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 16:09:47 by soojoo           ###   ########.fr       */
+/*   Created: 2022/12/26 21:35:35 by soojoo            #+#    #+#             */
+/*   Updated: 2023/01/10 00:50:53 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	quick_sort(t_stack *stack1, t_stack *stack2)
-{
-	int	pivot;
+#include"libft.h"
 
-	pivot = stack1->next->elem;
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < n && (s1[i] || s2[i]))
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	return (0);
 }

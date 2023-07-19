@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soojoo <shjoo820@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 16:49:25 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 16:09:47 by soojoo           ###   ########.fr       */
+/*   Created: 2023/01/08 05:43:57 by soojoo            #+#    #+#             */
+/*   Updated: 2023/01/08 20:06:26 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	quick_sort(t_stack *stack1, t_stack *stack2)
-{
-	int	pivot;
+#include"libft.h"
 
-	pivot = stack1->next->elem;
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*t_lst;
+
+	if (!lst || !new)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	t_lst = *lst;
+	while (t_lst->next)
+		t_lst = t_lst->next;
+	t_lst->next = new;
 }
