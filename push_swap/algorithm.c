@@ -6,35 +6,62 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:49:25 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/21 04:54:58 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/21 18:59:59 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//stack_a에 3개만 남기고 모두 stack_b로 push, stack_a 정렬
-void	push_b_all(t_stack stack_a, t_stack stack_b)
+#include"push_swap.h"
+
+void	push_b_all(t_stack stack_a, t_stack stack_b, t_info *info)
 {
-	
+	t_node	temp;
+
+	temp = stack_a->head;
+	while(info->a_count > 3)
+		pa(stack_a);
 }
 
-//실제 명령 실행
-void	sort(t_stack stack_a, t_stack stack_b)
+void	sort_3(t_stack *stack_a, t_info *info)
 {
-	 int	count;
-	 t_node	temp;
+	int	a;
+	int	b;
+	int	c;
 
-	 count = 0;
-	 temp = stack_a->head;
-	 while(temp)
-	 {
-		++count;
-		temp = temp->next;
-	 }
-	 count -= 2;
-	 
+	if(info->a_count < 2)
+		exit(0);
+	a = stack_a->head->next->elem;
+	b = stack_a->head->next->next->elem;
+	if(info->a_count < 3)
+	{
+		if(a > b)
+			sa(a);
+		exit(0);
+	}
+	c = stack_a->head->next->next->next->elem;
+	if(b > a && b > c && c > a)
+		sa(stack_a);
+	else if(c > a && c > b && a > b)
+		sa(stack_a);
+	else if(a > b && a > c && b > c)
+		sa(stack_a);
 }
 
-//stack_b를 모두 순회하며 각 숫자를 stack_a로 이동시키고 정렬하는데 필요한 명령어 수를 비교한다.
-int	select_number(t_stack a, t_stack b)
+int	count_command(t_stack a, t_info info, number)
+{
+	t_node	temp;
+
+	temp = a->head;
+	while(temp)
+	{
+		if(flag == 0)
+		{
+
+		}
+	}
+}
+
+//stack_b를 모두 순회하며 각 숫자를 stack_a로 이동시키고 정렬하는데 필요한 명령어 수를 비교한다. 명령어를 쓸 필요 없이 알맞은 위치만 찾으면 된다.
+int	select_number(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	temp;
 	int		count;
@@ -56,48 +83,10 @@ int	select_number(t_stack a, t_stack b)
 	return (number);
 }
 
-int	count_command(t_stack a, t_stack b, number)
+//실제 명령 실행
+void	sort(t_stack *stack_a, t_stack *stack_b, t_info *info)
 {
-	t_node	temp;
+	push_b_all(stack_a, stack_b, info);
+	sort_3(stack_a, info);
 
-	temp = t_stack->head
-}
-
-/*
-int	recursive(t_stack a, t_stack b, )
-{
-	int		check;
-	int		count;
-	t_node	temp;
-
-	check = 1;
-	count = 0;
-	temp = a->head;
-	while(temp)
-	{
-		if(temp->flag == 0)
-		{
-			
-		}
-	}
-	if(check)
-		return (1);
-	return (1 + recursive(a, b, pa);
-}
-*/
-
-//재귀를 사용]
-//	재귀 종료 조건: stack_a에 해당 노드 정렬 완료
-//	재귀 계산(?): 명령어를 실행
-//	
-//	우선 stack_a에는 3개의 노드만 놔둔 뒤 모두 push_b
-//
-//	stack_a: 1 3 4 2 5
-//	stack_b:
-//	
-//	stack_a: 4 2 5
-//	stack_b: 3 1
-//
-//	stack_a: 2 4 5
-
-//	stack_b: 
+} 

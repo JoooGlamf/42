@@ -5,59 +5,123 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 17:43:31 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 15:59:35 by soojoo           ###   ########.fr       */
+/*   Created: 2023/07/21 17:07:09 by soojoo            #+#    #+#             */
+/*   Updated: 2023/07/21 18:11:27 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"push_swap.h"
 
-void	command_swap(t_stack *stack)
+int	sa(t_stack a)
 {
-	int	temp1;
-	int	temp2;
-
-	if (stack->head->next != stack->tail
-		&& stack->head->next->next != stack->tail)
+	if(command_swap(a))
 	{
-		temp1 = pop(stack);
-		temp2 = pop(stack);
-		push(stack, temp1);
-		push(stack, temp2);
+		ft_printf("sa\n");
+		return (1);
 	}
+	return (0);
 }
 
-void	command_push(t_stack *stack1, t_stack *stack2)
+int	sb(t_stack b)
 {
-	int		temp;
-
-	if (stack2->head->next != stack2->tail)
+	if(command_swap(b))
 	{
-		temp = pop(stack2);
-		push(stack1, temp);
+		ft_printf("sb\n");
+		return (1);
 	}
+	return (0);
 }
 
-void	command_rotate(t_stack *stack)
+int	ss(t_stack a, t_stack b)
 {
-	int	temp;
-
-	if (stack->head->next != stack->tail
-		&& stack->head->next->next != stack->tail)
+	if(command_swap(a) && command_swap(b))
 	{
-		temp = pop(stack);
-		push_back(stack, temp);
+		ft_printf("ss\n");
+		return (1);
 	}
+	return (0);
+}
+	
+int	pa(t_stack a, t_stack b, t_info info)
+{
+	if(command_push(a, b))
+	{
+		info->a_count += 1;
+		info->b_count -= 1;
+		ft_printf("pa\n");
+		return (1);
+	}
+	return (0);
 }
 
-void	command_reverse_rotate(t_stack *stack)
+int	pb(t_stack b, t_stack a);
 {
-	int	temp;
-
-	if (stack->head->next != stack->tail
-		&& stack->head->next->next != stack->tail)
+	if(command_push(b, a))
 	{
-		temp = pop_back(stack);
-		push(stack, temp);
+		info->b_count += 1;
+		info->a_count -= 1;
+		ft_printf("pa\n");
+		return (1);
 	}
+	return (0);
+}
+
+int	ra(t_stack a)
+{
+	if(command_rotate(a))
+	{
+		ft_printf("ra\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	rb(t_stack b)
+{
+	if(command_rotate(b))
+	{
+		ft_printf("rb\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	rr(t_stack a, t_stack b)
+{
+	if(command_rotate(a) && command_rotate(b))
+	{
+		ft_printf("rr\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	rra(t_stack a)
+{
+	if(command_reverse_rotate(a))
+	{
+		ft_printf("rra\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	rrb(t_stack b)
+{
+	if(command_reverse_rotate(b))
+	{
+		ft_printf("rrb\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	rrr(t_stack a, t_stack b)
+{
+	if(command_reverse_rotate(a) && command_reverse_rotate(b))
+	{
+		ft_printf("rrr\n");
+		return (1);
+	}
+	return (0);
 }

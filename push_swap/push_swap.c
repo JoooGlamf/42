@@ -6,24 +6,26 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/21 15:21:44 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/21 18:07:43 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"push_swap.h"
 #include"ft_printf/ft_printf.h"
 
-t_stacks	*init_stacks(void)
+t_stacks	*init_stacks(t_info	*info)
 {
 	t_stacks	*output;
 
 	output = (t_stacks *)malloc(sizeof(t_stacks));
 	output->stack_a = init_stack();
 	output->stack_b = init_stack();
+	info->a_count = 0;
+	info->b_count = 0;
 	return (output);
 }
 
-void	push_all(int argc, char **argv, t_stack *stack)
+void	push_all(int argc, char **argv, t_stack *stack, t_info *info)
 {
 	int		i;
 	int		j;
@@ -33,13 +35,12 @@ void	push_all(int argc, char **argv, t_stack *stack)
 	while (i < argc)
 	{
 		numbers = ft_split(argv[i], ' ');
-		if (!numbers[0])
-			err_exit(1, "Error");
 		j = 0;
 		while (numbers[j])
 		{
 			check_int(numbers[j]);
 			push_back(stack, ft_atoi(numbers[j]));
+			t_info->a_count += 1;
 			j++;
 		}
 		++i;
@@ -49,10 +50,11 @@ void	push_all(int argc, char **argv, t_stack *stack)
 int	main(int argc, char **argv)
 {
 	t_stacks	*stacks;
-	t_info		info;
+	t_info		*info;
 
 	check_argc(argc);
-	stacks = init_stacks();
+	info = (t_info *)malloc(sizeof(t_info));
+	stacks = init_stacks(info);
 	push_all(argc, argv, stacks->stack_a);
 	check_duplication(stacks->stack_a);
 	t_node	*temp = stacks->stack_a->head;
