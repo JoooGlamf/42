@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 16:35:15 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/21 15:21:44 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	push_all(int argc, char **argv, t_stack *stack)
 		while (numbers[j])
 		{
 			check_int(numbers[j]);
-			push(stack, ft_atoi(numbers[j]));
+			push_back(stack, ft_atoi(numbers[j]));
 			j++;
 		}
 		++i;
@@ -49,11 +49,18 @@ void	push_all(int argc, char **argv, t_stack *stack)
 int	main(int argc, char **argv)
 {
 	t_stacks	*stacks;
+	t_info		info;
 
 	check_argc(argc);
 	stacks = init_stacks();
 	push_all(argc, argv, stacks->stack_a);
 	check_duplication(stacks->stack_a);
+	t_node	*temp = stacks->stack_a->head;
+	while(temp)
+	{
+		ft_printf("%d ", temp->elem);
+		temp = temp->next;
+	}
 }
 
 //argc = 1이면, 입력된 값 없음, 프로그램 그대로 종료

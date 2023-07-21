@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:03:05 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 16:09:29 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/21 04:28:34 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include<unistd.h>
 # include"ft_printf/ft_printf.h"
 # include"libft/libft.h"
+
+typedef	struct s_info
+{
+	int	stack_a_count;
+	int	stack_b_count;
+}	t_info;
 
 typedef struct s_node
 {
