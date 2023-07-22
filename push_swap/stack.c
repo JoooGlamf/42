@@ -6,7 +6,7 @@
 /*   By: soojoo <shjoo820@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:48:57 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 16:02:45 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/22 18:47:48 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,53 +15,55 @@
 t_stack	*init_stack(void)
 {
 	t_stack	*output;
-	t_node	*head;
-	t_node	*tail;
 
-	head = (t_node *)malloc(sizeof(t_node));
-	tail = (t_node *)malloc(sizeof(t_node));
-	head->elem = 0;
-	head->flag = 1;
-	head->prev = 0;
-	head->next = tail;
-	tail->elem = 0;
-	tail->flag = 1;
-	tail->prev = head;
-	tail->next = 0;
 	output = (t_stack *)malloc(sizeof(t_stack));
-	output->head = head;
-	output->tail = tail;
+	output->head = 0;
+	output->tail = 0;
+	output->count = 0;
+	output->smallest = 0;
 	return (output);
 }
 
-void	push(t_stack *stack, int new_elem)
+void	push(t_stack *stack, int number)
 {
 	t_node	*new;
-	t_node	*temp;
 
 	new = (t_node *)malloc(sizeof(t_node));
-	temp = stack->head->next;
-	temp->prev = new;
-	stack->head->next = new;
-	new->flag = 0;
-	new->prev = stack->head;
-	new->next = temp;
-	new->elem = new_elem;
+	new->elem = number;
+	if(stack->head == 0)
+	{
+		new->next = 0;
+		new->prev = 0;
+		stack->head = new;
+		stack->tail = new;
+		return ;
+	}
+	new->next = stack->head;
+	new->prev = stack->tail;
+	stack->head->prev = new;
+	stack->tail->next = new;
+	stack->head = new;
 }
 
-void	push_back(t_stack *stack, int new_elem)
+void	push_back(t_stack *stack, int number)
 {
 	t_node	*new;
-	t_node	*temp;
 
 	new = (t_node *)malloc(sizeof(t_node));
-	temp = stack->tail->prev;
-	temp->next = new;
-	stack->tail->prev = new;
-	new->flag = 0;
-	new->prev = temp;
-	new->next = stack->tail;
-	new->elem = new_elem;
+	new->elem = number;
+	if(stack->head == 0)
+	{
+		new->next = 0;
+		new->prev = 0;
+		stack->head = new;
+		stack->tail = new;
+		return ;
+	}
+	new->prev = stack->tail;
+	new->next = stack->head;
+	stack->tail->next = new;
+	stack->head->prev = new;
+	stack->tail = new;
 }
 
 int	pop(t_stack *stack)
@@ -70,13 +72,14 @@ int	pop(t_stack *stack)
 	int		output;
 
 	output = 0;
-	if (stack->head->next != stack->tail)
+	if(stack->head)
 	{
+		output = stack->head->elem;
+		stack->tail->next = stack->head->next;
+		stack->head->next->prev = stack->tail;
 		temp = stack->head->next;
-		stack->head->next = stack->head->next->next;
-		temp->next->prev = stack->head;
-		output = temp->elem;
-		free(temp);
+		free(stack->head);
+		stack->head = temp;
 	}
 	return (output);
 }
@@ -87,28 +90,21 @@ int	pop_back(t_stack *stack)
 	int		output;
 
 	output = 0;
-	if (stack->tail->prev != stack->head)
+	if (stack->head)
 	{
+		output = stack->tail->elem;
+		stack->head->prev = stack->tail->prev;
+		stack->tail->prev->next = stack->head;
 		temp = stack->tail->prev;
-		stack->tail->prev = stack->tail->prev->prev;
-		temp->prev->next = stack->tail;
-		output = temp->elem;
-		free(temp);
+		free(stack->tail);
+		stack->tail = temp;
 	}
 	return (output);
 }
 
 void	free_stack(t_stack *stack)
 {
-	t_node	*temp;
-	t_node	*temptemp;
-
-	temp = stack->head;
-	while (temp)
-	{
-		temptemp = temp;
-		temp = temp->next;
-		free(temptemp);
-	}
+	while(stack->head != stack->tail)
+		pop(stack);
 	free(stack);
 }

@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:17:11 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/19 16:07:00 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/22 18:57:09 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ void	err_exit(int exit_code, char *string)
 {
 	ft_printf("%s\n", string);
 	exit(exit_code);
-}
-
-void	check_argc(int argc)
-{
-	if (argc < 2)
-		err_exit(1, "No arguments");
 }
 
 void	check_int(char *number)
@@ -66,17 +60,23 @@ void	check_duplication(t_stack *stack)
 {
 	t_node	*temp;
 	t_node	*temptemp;
+	int		i;
+	int		j;
 
-	temp = stack->head->next;
-	while (temp->flag == 0)
+	temp = stack->head;
+	i = 0;
+	while (i < stack->count)
 	{
-		temptemp = stack->head->next;
-		while (temptemp != temp)
+		j = 0;
+		temptemp = stack->head;
+		while (j < i)
 		{
 			if (temptemp->elem == temp->elem)
 				err_exit(1, "Error");
 			temptemp = temptemp->next;
+			++j;
 		}
 		temp = temp->next;
+		++i;
 	}
 }

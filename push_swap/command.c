@@ -6,13 +6,13 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 17:07:09 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/21 18:11:27 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/22 17:44:35 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"push_swap.h"
 
-int	sa(t_stack a)
+int	sa(t_stack *a)
 {
 	if(command_swap(a))
 	{
@@ -22,7 +22,7 @@ int	sa(t_stack a)
 	return (0);
 }
 
-int	sb(t_stack b)
+int	sb(t_stack *b)
 {
 	if(command_swap(b))
 	{
@@ -32,9 +32,9 @@ int	sb(t_stack b)
 	return (0);
 }
 
-int	ss(t_stack a, t_stack b)
+int	ss(t_stack *a, t_stack *b)
 {
-	if(command_swap(a) && command_swap(b))
+	if(command_swap(a) || command_swap(b))
 	{
 		ft_printf("ss\n");
 		return (1);
@@ -42,31 +42,27 @@ int	ss(t_stack a, t_stack b)
 	return (0);
 }
 	
-int	pa(t_stack a, t_stack b, t_info info)
+int	pa(t_stack *a, t_stack *b)
 {
 	if(command_push(a, b))
 	{
-		info->a_count += 1;
-		info->b_count -= 1;
 		ft_printf("pa\n");
 		return (1);
 	}
 	return (0);
 }
 
-int	pb(t_stack b, t_stack a);
+int	pb(t_stack *b, t_stack *a)
 {
 	if(command_push(b, a))
 	{
-		info->b_count += 1;
-		info->a_count -= 1;
 		ft_printf("pa\n");
 		return (1);
 	}
 	return (0);
 }
 
-int	ra(t_stack a)
+int	ra(t_stack *a)
 {
 	if(command_rotate(a))
 	{
@@ -76,7 +72,7 @@ int	ra(t_stack a)
 	return (0);
 }
 
-int	rb(t_stack b)
+int	rb(t_stack *b)
 {
 	if(command_rotate(b))
 	{
@@ -86,9 +82,9 @@ int	rb(t_stack b)
 	return (0);
 }
 
-int	rr(t_stack a, t_stack b)
+int	rr(t_stack *a, t_stack *b)
 {
-	if(command_rotate(a) && command_rotate(b))
+	if(command_rotate(a) || command_rotate(b))
 	{
 		ft_printf("rr\n");
 		return (1);
@@ -96,7 +92,7 @@ int	rr(t_stack a, t_stack b)
 	return (0);
 }
 
-int	rra(t_stack a)
+int	rra(t_stack *a)
 {
 	if(command_reverse_rotate(a))
 	{
@@ -106,7 +102,7 @@ int	rra(t_stack a)
 	return (0);
 }
 
-int	rrb(t_stack b)
+int	rrb(t_stack *b)
 {
 	if(command_reverse_rotate(b))
 	{
@@ -116,9 +112,9 @@ int	rrb(t_stack b)
 	return (0);
 }
 
-int	rrr(t_stack a, t_stack b)
+int	rrr(t_stack *a, t_stack *b)
 {
-	if(command_reverse_rotate(a) && command_reverse_rotate(b))
+	if(command_reverse_rotate(a) || command_reverse_rotate(b))
 	{
 		ft_printf("rrr\n");
 		return (1);
