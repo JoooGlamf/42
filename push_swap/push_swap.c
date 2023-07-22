@@ -6,14 +6,14 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 06:44:44 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 08:07:40 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"push_swap.h"
 #include"ft_printf/ft_printf.h"
 
-t_stacks	*init_stacks()
+t_stacks	*init_stacks(void)
 {
 	t_stacks	*output;
 
@@ -45,7 +45,7 @@ void	push_all(int argc, char **argv, t_stack *stack)
 	}
 }
 
-void	reset_command_info(t_command_info *command_info)
+void	reset_command_info(t_info *command_info)
 {
 	command_info->rr = 0;
 	command_info->ra = 0;
@@ -54,14 +54,14 @@ void	reset_command_info(t_command_info *command_info)
 	command_info->rra = 0;
 	command_info->rrb = 0;
 }
-	
+
 int	main(int argc, char **argv)
 {
 	t_stacks		*stacks;
-	t_command_info	*command_info;
+	t_info	*command_info;
 
 	stacks = init_stacks();
-	command_info = (t_command_info *)malloc(sizeof(t_command_info));
+	command_info = (t_info *)malloc(sizeof(t_info));
 	reset_command_info(command_info);
 	push_all(argc, argv, stacks->stack_a);
 	check_duplication(stacks->stack_a);

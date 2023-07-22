@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 17:43:31 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 03:34:46 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 07:25:56 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	command_rotate(t_stack *stack)
 {
 	int	temp;
 
-	if(stack->count < 2)
+	if (stack->count < 2)
 		return (0);
 	temp = pop(stack);
 	stack->count -= 1;
@@ -60,7 +60,7 @@ int	command_reverse_rotate(t_stack *stack)
 {
 	int	temp;
 
-	if(stack->count < 2)
+	if (stack->count < 2)
 		return (0);
 	temp = pop_back(stack);
 	stack->count -= 1;
