@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/22 18:48:06 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 06:44:44 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,28 @@ void	push_all(int argc, char **argv, t_stack *stack)
 	}
 }
 
+void	reset_command_info(t_command_info *command_info)
+{
+	command_info->rr = 0;
+	command_info->ra = 0;
+	command_info->rb = 0;
+	command_info->rrr = 0;
+	command_info->rra = 0;
+	command_info->rrb = 0;
+}
+	
 int	main(int argc, char **argv)
 {
-	t_stacks	*stacks;
+	t_stacks		*stacks;
+	t_command_info	*command_info;
 
 	stacks = init_stacks();
+	command_info = (t_command_info *)malloc(sizeof(t_command_info));
+	reset_command_info(command_info);
 	push_all(argc, argv, stacks->stack_a);
 	check_duplication(stacks->stack_a);
-	t_node	*temp = stacks->stack_a->head;
-	int	i = 0;
-	while(i < stacks->stack_a->count)
-	{
-		ft_printf("%d ", temp->elem);
-		temp = temp->next;
-		++i;
-	}
+	sort(stacks->stack_a, stacks->stack_b, command_info);
+	exit(0);
 }
 
 //argc = 1이면, 입력된 값 없음, 프로그램 그대로 종료

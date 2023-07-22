@@ -6,7 +6,7 @@
 /*   By: soojoo <shjoo820@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:48:57 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/22 18:47:48 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 03:36:00 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	push(t_stack *stack, int number)
 
 	new = (t_node *)malloc(sizeof(t_node));
 	new->elem = number;
-	if(stack->head == 0)
+	if(stack->count == 0)
 	{
-		new->next = 0;
-		new->prev = 0;
+		new->next = new;
+		new->prev = new;
 		stack->head = new;
 		stack->tail = new;
 		return ;
@@ -51,10 +51,10 @@ void	push_back(t_stack *stack, int number)
 
 	new = (t_node *)malloc(sizeof(t_node));
 	new->elem = number;
-	if(stack->head == 0)
+	if(stack->count == 0)
 	{
-		new->next = 0;
-		new->prev = 0;
+		new->next = new;
+		new->prev = new;
 		stack->head = new;
 		stack->tail = new;
 		return ;

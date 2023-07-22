@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 17:07:09 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/22 17:44:35 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 06:16:44 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	pb(t_stack *b, t_stack *a)
 {
 	if(command_push(b, a))
 	{
-		ft_printf("pa\n");
+		ft_printf("pb\n");
 		return (1);
 	}
 	return (0);
