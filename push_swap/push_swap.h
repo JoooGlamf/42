@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:03:05 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 15:13:53 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 16:10:21 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ typedef struct s_command_info
 	int	rrb;
 }	t_info;
 
-//stack.c
+//stack*.c
 t_stack		*init_stack(void);
 void		push(t_stack *stack, int number);
 void		push_back(t_stack *stack, int number);
 int			pop(t_stack *stack);
 int			pop_back(t_stack *stack);
-void		free_stack(t_stack *stack);
 
 //pre_command.c
 int			command_swap(t_stack *stack);
@@ -61,7 +60,7 @@ int			command_push(t_stack *stack1, t_stack *stack2);
 int			command_rotate(t_stack *stack);
 int			command_reverse_rotate(t_stack *stack);
 
-//command.c
+//command*.c
 int			sa(t_stack *a);
 int			sb(t_stack *b);
 int			ss(t_stack *a, t_stack *b);

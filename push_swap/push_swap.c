@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 15:46:50 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 16:05:15 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	main(int argc, char **argv)
 	t_stacks	*stacks;
 	t_info		*command_info;
 
+	if (argc < 2)
+		exit(0);
 	stacks = init_stacks();
 	command_info = (t_info *)malloc(sizeof(t_info));
 	if (!command_info)
@@ -78,9 +80,3 @@ int	main(int argc, char **argv)
 	free(command_info);
 	exit(0);
 }
-
-//argc = 1이면, 입력된 값 없음, 프로그램 그대로 종료
-//숫자가 아닌 문자 있으면 오류처리, 프로그램 종료
-//숫자가 중복되면 오류처리, 프로그램 종료
-//adt를 꼭 스택 그 자체로 만들 필요는 없는듯
-//적절한 정렬 알고리즘을 찾아서 해당 정렬 알고리즘과 같이 작동하도록 명령어 셋을 사용한다?

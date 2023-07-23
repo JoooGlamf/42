@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   select_number.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 22:39:02 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 12:49:26 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 16:05:59 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//stack_a에서 가장 작은 수를 찾는다. 정말로 그냥 가장 작은 정수
 int	find_smallest(t_stack *stack)
 {
 	int		i;
@@ -36,7 +35,6 @@ int	find_smallest(t_stack *stack)
 	return (stack->smallest);
 }
 
-//stack->smallest를 이용하여 가장 작은 수부터 큰수까지 수를 비교하여 알맞은 위치를 찾아, 명령어의 숫자를 구한다.
 int	count_command_a(t_stack *stack_a, int number)
 {
 	t_node	*temp;
