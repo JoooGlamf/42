@@ -6,12 +6,11 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:17:11 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 15:17:49 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 15:47:08 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"push_swap.h"
-#include"ft_printf/ft_printf.h"
 
 void	err_exit(int exit_code, char *string)
 {

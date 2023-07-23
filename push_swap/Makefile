@@ -6,7 +6,7 @@
 #    By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 02:30:52 by soojoo            #+#    #+#              #
-#    Updated: 2023/07/23 14:05:14 by soojoo           ###   ########.fr        #
+#    Updated: 2023/07/23 15:48:06 by soojoo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ PUSH_SWAP_SRCS = \
 
 LIBFT_SRCS = \
 	libft/ft_memset.c \
-	libft/ft_strjoin.c \
 	libft/ft_calloc.c \
 	libft/ft_split.c \
 	libft/ft_strncmp.c \
@@ -48,7 +47,6 @@ FT_PRINTF_SRCS = \
 PUSH_SWAP_OBJS =  $(PUSH_SWAP_SRCS:.c=.o)
 LIBFT_OBJS =  $(LIBFT_SRCS:.c=.o)
 FT_PRINTF_OBJS =  $(FT_PRINTF_SRCS:.c=.o)
-
 
 all: $(NAME)
 

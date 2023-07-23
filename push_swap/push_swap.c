@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 15:18:52 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 15:46:50 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int	main(int argc, char **argv)
 	check_align(stacks->stack_a);
 	sort(stacks->stack_a, stacks->stack_b, command_info);
 	free(command_info);
-	//
-	system("leaks push_swap>leaks_result_temp; cat leaks_result_temp | grep leaked && rm -rf leaks_result-temp");
 	exit(0);
 }
 
