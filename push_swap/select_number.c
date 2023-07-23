@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 22:39:02 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 11:42:44 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 12:49:26 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,16 @@ int	count_command_a(t_stack *stack_a, int number)
 	t_node	*temp;
 	int		i;
 
-	find_smallest(stack_a);
 	temp = stack_a->head;
-	i = 0;
-	while (i < stack_a->smallest)
-	{
+	i = -1;
+	while (++i < stack_a->smallest)
 		temp = temp->next;
-		++i;
-	}
 	while (1)
 	{
 		if (number > temp->elem)
 		{
-			if (temp->elem > temp->next->elem)
-			{
-				++i;
+			if (temp->elem > temp->next->elem && ++i)
 				break ;
-			}
 		}
 		else
 			break ;
@@ -88,8 +81,8 @@ int	count_command(t_stack *stack_b, int a_command_count, int i)
 	return (count);
 }
 
-#include<stdio.h>
-void	smallest_command_info(t_stack *stack_b, int a_command_count, int i, t_info *command_info)
+void	smallest_command_info(t_stack *stack_b,
+			int a_command_count, int i, t_info *command_info)
 {
 	if (a_command_count >= 0 && i < (stack_b->count / 2))
 	{
@@ -111,7 +104,6 @@ void	smallest_command_info(t_stack *stack_b, int a_command_count, int i, t_info 
 		command_info->rra = a_command_count * (-1);
 		command_info->rrb = stack_b->count - i;
 	}
-	//printf("%d %d %d %d\n", command_info->ra, command_info->rb, command_info->rra, command_info->rrb);
 }
 
 int	find_smallest_command_number(t_stack *stack_a,
@@ -119,21 +111,19 @@ int	find_smallest_command_number(t_stack *stack_a,
 {
 	t_node	*temp;
 	int		i;
-	//int		count;
 	int		a_command_count;
 	int		smallest_count;
 
 	temp = stack_b->head;
+	find_smallest(stack_a);
 	a_command_count = count_command_a(stack_a, temp->elem);
 	smallest_count = count_command(stack_b, a_command_count, 0);
 	smallest_command_info(stack_b, a_command_count, 0, command_info);
 	temp = temp->next;
-	i = 1;
-	while (i < stack_b->count)
+	i = 0;
+	while (++i < stack_b->count)
 	{
 		a_command_count = count_command_a(stack_a, temp->elem);
-		//count = count_command(stack_b,
-		//		count_command_a(stack_a, temp->elem), i);
 		if (smallest_count > count_command(stack_b, a_command_count, i))
 		{
 			smallest_count = count_command(stack_b, a_command_count, i);
@@ -142,13 +132,6 @@ int	find_smallest_command_number(t_stack *stack_a,
 			smallest_command_info(stack_b, a_command_count, i, command_info);
 		}
 		temp = temp->next;
-		++i;
 	}
-	//temp = stack_b->head;
-	//i = 0;
-	//while(i < stack_b->smallest)
-	//	temp = temp->next;
-	//smallest_command_info(stack_b,
-	//	count_command_a(stack_a, temp->elem), stack_b->smallest, command_info);
 	return (stack_b->smallest);
 }

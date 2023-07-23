@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 08:54:58 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 12:23:26 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	push_all(int argc, char **argv, t_stack *stack)
 		j = 0;
 		while (numbers[j])
 		{
+			check_only_number(numbers[j]);
 			check_int(numbers[j]);
 			push_back(stack, ft_atoi(numbers[j]));
 			++(stack->count);
@@ -55,8 +56,8 @@ void	reset_command_info(t_info *command_info)
 
 int	main(int argc, char **argv)
 {
-	t_stacks		*stacks;
-	t_info	*command_info;
+	t_stacks	*stacks;
+	t_info		*command_info;
 
 	stacks = init_stacks();
 	command_info = (t_info *)malloc(sizeof(t_info));

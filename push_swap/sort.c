@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:49:25 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 11:42:17 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 12:25:37 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	execute_commands(t_stack *stack_a, t_stack *stack_b,
 }
 
 //실제 명령 실행
-#include<stdio.h>
 void	sort(t_stack *stack_a, t_stack *stack_b, t_info *command_info)
 {
 	push_b_except3(stack_a, stack_b);

@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:17:11 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/22 18:57:09 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 12:24:36 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	err_exit(int exit_code, char *string)
 	exit(exit_code);
 }
 
-void	check_int(char *number)
+void	check_only_number(char *number)
 {
 	int	i;
 
@@ -27,15 +27,17 @@ void	check_int(char *number)
 	while (number[i])
 	{
 		if (number[i] == '-')
-		{
 			if (i != 0 || number[i + 1] < '0' || number[i + 1] > '9')
 				err_exit(1, "Error");
-		}
 		if ((number[i] < '0' || number[i] > '9')
 			&& number[i] != ' ' && number[i] != '-')
 			err_exit(1, "Error");
-		++i;
+	++i;
 	}
+}
+
+void	check_int(char *number)
+{
 	if (number[0] == '-')
 	{
 		if (ft_strlen(number) < 11)
