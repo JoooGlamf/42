@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 08:07:40 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 08:54:58 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void	push_all(int argc, char **argv, t_stack *stack)
 
 void	reset_command_info(t_info *command_info)
 {
-	command_info->rr = 0;
 	command_info->ra = 0;
 	command_info->rb = 0;
-	command_info->rrr = 0;
 	command_info->rra = 0;
 	command_info->rrb = 0;
 }

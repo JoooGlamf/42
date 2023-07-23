@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:49:25 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 08:08:30 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 10:21:31 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,6 @@ void	execute_commands(t_stack *stack_a, t_stack *stack_b,
 	int	i;
 
 	i = 0;
-	while (i++ < command_info->rr)
-		rr(stack_a, stack_b);
-	i = 0;
-	while (i++ < command_info->rrr)
-		rrr(stack_a, stack_b);
-	i = 0;
 	while (i++ < command_info->ra)
 		ra(stack_a);
 	i = 0;
@@ -93,6 +87,7 @@ void	execute_commands(t_stack *stack_a, t_stack *stack_b,
 }
 
 //실제 명령 실행
+#include<stdio.h>
 void	sort(t_stack *stack_a, t_stack *stack_b, t_info *command_info)
 {
 	push_b_except3(stack_a, stack_b);
@@ -103,6 +98,7 @@ void	sort(t_stack *stack_a, t_stack *stack_b, t_info *command_info)
 		execute_commands(stack_a, stack_b, command_info);
 		pa(stack_a, stack_b);
 		reset_command_info(command_info);
-	}	
+	}
+	find_smallest(stack_a);
 	make_smallest_head(stack_a);
 }

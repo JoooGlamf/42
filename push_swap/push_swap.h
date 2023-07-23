@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:03:05 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 08:06:26 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 09:54:02 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ typedef struct s_stacks
 
 typedef struct s_command_info
 {
-	int	rr;
 	int	ra;
 	int	rb;
-	int	rrr;
 	int	rra;
 	int	rrb;
 }	t_info;
@@ -92,8 +90,8 @@ void	sort(t_stack *stack_a, t_stack *stack_b, t_info *command_info);
 //select_number.c
 int		find_smallest(t_stack *stack);
 int		count_command_a(t_stack *stack_a, int number);
-int		cound_command(t_stack *stack_b, int a_command_count,
-			int i, t_info *command_info);
+int		cound_command(t_stack *stack_b, int a_command_count, int i);
+void	smallest_command_info(t_stack *b, int a_command_count, int i, t_info *command_info);
 int		find_smallest_command_number(t_stack *stack_a,
 			t_stack *stack_b, t_info *command_info);
 
