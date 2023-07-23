@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 22:39:02 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 10:30:42 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 11:42:44 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ int	count_command_a(t_stack *stack_a, int number)
 	return (i);
 }
 
-int	count_command(t_stack *stack_b, int a_command_count,
-		int i)
+int	count_command(t_stack *stack_b, int a_command_count, int i)
 {
 	int	count;
 
@@ -89,6 +88,7 @@ int	count_command(t_stack *stack_b, int a_command_count,
 	return (count);
 }
 
+#include<stdio.h>
 void	smallest_command_info(t_stack *stack_b, int a_command_count, int i, t_info *command_info)
 {
 	if (a_command_count >= 0 && i < (stack_b->count / 2))
@@ -99,7 +99,7 @@ void	smallest_command_info(t_stack *stack_b, int a_command_count, int i, t_info 
 	else if (a_command_count >= 0 && i >= (stack_b->count / 2))
 	{
 		command_info->ra = a_command_count;
-		command_info->rrb = stack_b->count - i - 1;
+		command_info->rrb = stack_b->count - i;
 	}
 	else if (a_command_count < 0 && i < (stack_b->count / 2))
 	{
@@ -109,8 +109,9 @@ void	smallest_command_info(t_stack *stack_b, int a_command_count, int i, t_info 
 	else if (a_command_count < 0 && i >= (stack_b->count / 2))
 	{
 		command_info->rra = a_command_count * (-1);
-		command_info->rrb = stack_b->count - i - 1;
+		command_info->rrb = stack_b->count - i;
 	}
+	//printf("%d %d %d %d\n", command_info->ra, command_info->rb, command_info->rra, command_info->rrb);
 }
 
 int	find_smallest_command_number(t_stack *stack_a,
@@ -118,32 +119,36 @@ int	find_smallest_command_number(t_stack *stack_a,
 {
 	t_node	*temp;
 	int		i;
-	int		count;
+	//int		count;
+	int		a_command_count;
 	int		smallest_count;
 
 	temp = stack_b->head;
-	smallest_count = count_command(stack_b,
-			count_command_a(stack_a, temp->elem), 0);
+	a_command_count = count_command_a(stack_a, temp->elem);
+	smallest_count = count_command(stack_b, a_command_count, 0);
+	smallest_command_info(stack_b, a_command_count, 0, command_info);
 	temp = temp->next;
 	i = 1;
 	while (i < stack_b->count)
 	{
-		reset_command_info(command_info);
-		count = count_command(stack_b,
-				count_command_a(stack_a, temp->elem), i);
-		if (smallest_count > count)
+		a_command_count = count_command_a(stack_a, temp->elem);
+		//count = count_command(stack_b,
+		//		count_command_a(stack_a, temp->elem), i);
+		if (smallest_count > count_command(stack_b, a_command_count, i))
 		{
-			smallest_count = count;
+			smallest_count = count_command(stack_b, a_command_count, i);
 			stack_b->smallest = i;
+			reset_command_info(command_info);
+			smallest_command_info(stack_b, a_command_count, i, command_info);
 		}
 		temp = temp->next;
 		++i;
 	}
-	temp = stack_b->head;
-	i = 0;
-	while(i < stack_b->smallest)
-		temp = temp->next;
-	smallest_command_info(stack_b,
-		count_command_a(stack_a, temp->elem), stack_b->smallest, command_info);
+	//temp = stack_b->head;
+	//i = 0;
+	//while(i < stack_b->smallest)
+	//	temp = temp->next;
+	//smallest_command_info(stack_b,
+	//	count_command_a(stack_a, temp->elem), stack_b->smallest, command_info);
 	return (stack_b->smallest);
 }
