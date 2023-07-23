@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:03:05 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 12:52:57 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 15:13:53 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void		err_exit(int exit_code, char *string);
 void		check_only_number(char *number);
 void		check_int(char *number);
 void		check_duplication(t_stack *stack);
+void		check_align(t_stack *stack);
 
 //sort.c
 void		push_b_except3(t_stack *stack_a, t_stack *stack_b);

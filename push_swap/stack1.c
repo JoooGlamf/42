@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack.c                                            :+:      :+:    :+:   */
+/*   stack1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soojoo <shjoo820@naver.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:48:57 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 07:56:29 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 15:18:09 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_stack	*init_stack(void)
 	t_stack	*output;
 
 	output = (t_stack *)malloc(sizeof(t_stack));
+	if (!output)
+		err_exit(1, "Error\n");
 	output->head = 0;
 	output->tail = 0;
 	output->count = 0;
@@ -29,6 +31,8 @@ void	push(t_stack *stack, int number)
 	t_node	*new;
 
 	new = (t_node *)malloc(sizeof(t_node));
+	if (!new)
+		err_exit(1, "Error\n");
 	new->elem = number;
 	if (stack->count == 0)
 	{
@@ -50,6 +54,8 @@ void	push_back(t_stack *stack, int number)
 	t_node	*new;
 
 	new = (t_node *)malloc(sizeof(t_node));
+	if (!new)
+		err_exit(1, "Error\n");
 	new->elem = number;
 	if (stack->count == 0)
 	{

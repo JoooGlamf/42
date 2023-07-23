@@ -6,13 +6,13 @@
 #    By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 02:30:52 by soojoo            #+#    #+#              #
-#    Updated: 2023/07/23 13:02:05 by soojoo           ###   ########.fr        #
+#    Updated: 2023/07/23 14:05:14 by soojoo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= push_swap
 CC		= cc
-CFLAG	= -Wall -Wextra -Werror
+CFLAG	= -Wall -Wextra -Werror   
 
 PUSH_SWAP_SRCS = \
 	check.c \

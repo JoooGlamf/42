@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:17:11 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 12:24:36 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 15:17:49 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,30 @@ void	check_duplication(t_stack *stack)
 		temp = temp->next;
 		++i;
 	}
+}
+
+void	check_align(t_stack *stack)
+{
+	int		i;
+	int		flag;
+	int		temp_num;
+	t_node	*temp;
+
+	flag = 1;
+	temp = stack->head->next;
+	temp_num = stack->head->elem;
+	i = 1;
+	while (i < stack->count)
+	{
+		if (temp_num >= temp->elem)
+		{
+			flag = 0;
+			break ;
+		}
+		temp_num = temp->elem;
+		temp = temp->next;
+		++i;
+	}
+	if (flag)
+		exit(0);
 }

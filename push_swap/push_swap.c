@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 12:23:26 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 15:18:52 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_stacks	*init_stacks(void)
 	t_stacks	*output;
 
 	output = (t_stacks *)malloc(sizeof(t_stacks));
+	if (!output)
+		err_exit(1, "Error\n");
 	output->stack_a = init_stack();
 	output->stack_b = init_stack();
 	return (output);
@@ -33,6 +35,8 @@ void	push_all(int argc, char **argv, t_stack *stack)
 	while (i < argc)
 	{
 		numbers = ft_split(argv[i], ' ');
+		if (!numbers)
+			err_exit(1, "Error\n");
 		j = 0;
 		while (numbers[j])
 		{
@@ -40,9 +44,12 @@ void	push_all(int argc, char **argv, t_stack *stack)
 			check_int(numbers[j]);
 			push_back(stack, ft_atoi(numbers[j]));
 			++(stack->count);
+			free(numbers[j]);
 			j++;
 		}
+		free(numbers[j]);
 		++i;
+		free(numbers);
 	}
 }
 
@@ -61,10 +68,16 @@ int	main(int argc, char **argv)
 
 	stacks = init_stacks();
 	command_info = (t_info *)malloc(sizeof(t_info));
+	if (!command_info)
+		err_exit(1, "Error\n");
 	reset_command_info(command_info);
 	push_all(argc, argv, stacks->stack_a);
 	check_duplication(stacks->stack_a);
+	check_align(stacks->stack_a);
 	sort(stacks->stack_a, stacks->stack_b, command_info);
+	free(command_info);
+	//
+	system("leaks push_swap>leaks_result_temp; cat leaks_result_temp | grep leaked && rm -rf leaks_result-temp");
 	exit(0);
 }
 

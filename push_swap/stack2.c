@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 07:54:51 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 07:56:14 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/23 14:44:17 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,18 @@ int	pop_back(t_stack *stack)
 
 void	free_stack(t_stack *stack)
 {
-	while (stack->head != stack->tail)
-		pop(stack);
+	int		i;
+	t_node	*temp;
+	t_node	*temptemp;
+
+	temp = stack->head;
+	i = 0;
+	while (temp != stack->head)
+	{
+		temptemp = temp;
+		temp = temp->next;
+		free(temptemp);
+	}
+	free(stack->head);
 	free(stack);
 }
