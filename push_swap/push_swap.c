@@ -6,12 +6,11 @@
 /*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 16:05:15 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/25 00:35:25 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"push_swap.h"
-#include"ft_printf/ft_printf.h"
 
 t_stacks	*init_stacks(void)
 {
