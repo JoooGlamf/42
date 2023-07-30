@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 22:39:02 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/30 12:26:05 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/30 13:18:32 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	smallest_command_info(t_stack *stack_b,
 			command_info->ra = a_command_count;
 			command_info->rb = i;
 		}
-		if (a_command_count > i)
+		else if (a_command_count > i)
 		{
 			command_info->rr = i;
 			command_info->ra = a_command_count - i;
