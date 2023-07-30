@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 22:39:02 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 16:05:59 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/30 12:26:05 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,23 @@ int	count_command(t_stack *stack_b, int a_command_count, int i)
 
 	count = 0;
 	if (a_command_count >= 0 && i < (stack_b->count / 2))
-		count = a_command_count + i;
+	{
+		if (a_command_count > i)
+			count = a_command_count;
+		else
+			count = i;
+	}
 	else if (a_command_count >= 0 && i >= (stack_b->count / 2))
 		count = a_command_count + stack_b->count - i;
 	else if (a_command_count < 0 && i < (stack_b->count / 2))
 		count = a_command_count * (-1) + i;
 	else if (a_command_count < 0 && i >= (stack_b->count / 2))
-		count = a_command_count * (-1) + stack_b->count - i;
+	{
+		if (a_command_count * (-1)  < stack_b->count - i)
+			count = stack_b->count - i;
+		else
+			count = a_command_count * (-1);
+	}
 	return (count);
 }
 
@@ -84,8 +94,21 @@ void	smallest_command_info(t_stack *stack_b,
 {
 	if (a_command_count >= 0 && i < (stack_b->count / 2))
 	{
-		command_info->ra = a_command_count;
-		command_info->rb = i;
+		if(!a_command_count || !i)
+		{
+			command_info->ra = a_command_count;
+			command_info->rb = i;
+		}
+		if (a_command_count > i)
+		{
+			command_info->rr = i;
+			command_info->ra = a_command_count - i;
+		}
+		else
+		{
+			command_info->rr = a_command_count;
+			command_info->rb = i - a_command_count;
+		}
 	}
 	else if (a_command_count >= 0 && i >= (stack_b->count / 2))
 	{
@@ -99,8 +122,21 @@ void	smallest_command_info(t_stack *stack_b,
 	}
 	else if (a_command_count < 0 && i >= (stack_b->count / 2))
 	{
-		command_info->rra = a_command_count * (-1);
-		command_info->rrb = stack_b->count - i;
+		if(!a_command_count || !i)
+		{
+			command_info->rra = a_command_count * (-1);
+			command_info->rrb = stack_b->count - i;
+		}
+		else if(a_command_count * (-1) > stack_b->count - i)
+		{
+			command_info->rrr = stack_b->count - i;
+			command_info->rra = a_command_count * (-1) - (stack_b->count - i);
+		}
+		else
+		{
+			command_info->rrr = a_command_count * (-1);
+			command_info->rrb = stack_b->count - i - a_command_count * (-1);
+		}
 	}
 }
 

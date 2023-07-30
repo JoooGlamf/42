@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:49:25 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 16:06:06 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/30 10:51:42 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ void	execute_commands(t_stack *stack_a, t_stack *stack_b,
 	int	i;
 
 	i = 0;
+	while(i++ < command_info->rr)
+		rr(stack_a, stack_b);
+	i = 0;
+	while(i++ < command_info->rrr)
+		rrr(stack_a, stack_b);
+	i = 0;
 	while (i++ < command_info->ra)
 		ra(stack_a);
 	i = 0;
@@ -92,10 +98,10 @@ void	sort(t_stack *stack_a, t_stack *stack_b, t_info *command_info)
 	sort_3(stack_a);
 	while (stack_b->count > 0)
 	{
+		reset_command_info(command_info);
 		find_smallest_command_number(stack_a, stack_b, command_info);
 		execute_commands(stack_a, stack_b, command_info);
 		pa(stack_a, stack_b);
-		reset_command_info(command_info);
 	}
 	find_smallest(stack_a);
 	make_smallest_head(stack_a);

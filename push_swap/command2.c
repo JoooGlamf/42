@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 07:48:46 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 07:50:19 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/30 12:36:53 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	rb(t_stack *b)
 
 int	rr(t_stack *a, t_stack *b)
 {
-	if (command_rotate(a) || command_rotate(b))
+	int	output;
+
+	output = 1;
+	if (command_rotate(a) && command_rotate(b))
 	{
 		ft_printf("rr\n");
 		return (1);

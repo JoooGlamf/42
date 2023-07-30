@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:10:20 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/25 00:35:25 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/30 10:51:45 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ void	reset_command_info(t_info *command_info)
 {
 	command_info->ra = 0;
 	command_info->rb = 0;
+	command_info->rr = 0;
 	command_info->rra = 0;
 	command_info->rrb = 0;
+	command_info->rrr = 0;
 }
 
 int	main(int argc, char **argv)
@@ -71,7 +73,6 @@ int	main(int argc, char **argv)
 	command_info = (t_info *)malloc(sizeof(t_info));
 	if (!command_info)
 		err_exit(1, "Error\n");
-	reset_command_info(command_info);
 	push_all(argc, argv, stacks->stack_a);
 	check_duplication(stacks->stack_a);
 	check_align(stacks->stack_a);

@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:03:05 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 16:10:21 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/30 09:20:51 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ typedef struct s_command_info
 {
 	int	ra;
 	int	rb;
+	int	rr;
 	int	rra;
 	int	rrb;
+	int	rrr;
 }	t_info;
 
 //stack*.c

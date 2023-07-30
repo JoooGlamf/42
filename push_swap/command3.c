@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 07:49:32 by soojoo            #+#    #+#             */
-/*   Updated: 2023/07/23 07:50:08 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/07/30 12:37:48 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	rrb(t_stack *b)
 
 int	rrr(t_stack *a, t_stack *b)
 {
-	if (command_reverse_rotate(a) || command_reverse_rotate(b))
+	int	output;
+
+	output = 1;
+	if (command_reverse_rotate(a) && command_reverse_rotate(b))
 	{
 		ft_printf("rrr\n");
 		return (1);
