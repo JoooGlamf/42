@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:12:43 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/06 20:34:19 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/10 23:53:43 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,8 @@ int	check_argv(int argc, char **argv)
 	int	i;
 	int	j;
 
-	if(argc != 6)//number_of_times_each_philosopher_must_eat
-	{
-		printf("arguments error!\n");
-		return (1);
-	}
+	if(argc != 5)//number_of_times_each_philosopher_must_eat는 우선 사용하지 않음
+		return (0);
 	i  = 0;
 	while(i < argc)
 	{
@@ -41,10 +38,11 @@ int	check_argv(int argc, char **argv)
 	return (1);
 }
 
-
 int	main(int argc, char **argv)
 {
+	t_data	data;
+
 	if(!check_argv(argc, argv))
-		return(return_error(1, "arguments error!");
-	
+		return(return_error(1, "arguments error!"));		
+	data = init_data(argc, argv); 
 }
