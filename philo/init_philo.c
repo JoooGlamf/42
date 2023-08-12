@@ -6,61 +6,72 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:31:34 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/11 12:46:25 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/11 17:30:09 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"philo.h"
 
-t_info	*init_info(char **argv)
+t_info	*init_info(int argc, char **argv)
 {
-	t_info	*output;
-	int		i;
+	t_info	*info;
 
-	output = (t_info *)malloc(sizeof(t_info));
-	output->num_of_philo = ft_itoa(argv[1]);
-	output->time_to_die = ft_itoa(argv[2]);
-	output->time_to_eat = ft_itoa(argv[3]);
-	output->time_to_sleep = ft_itoa(argv[4]);
-	return (output);
-}
-
-p_thread_t	*init_philos(t_info *info)
-{
-	t_philo	philos;
-	int		i;
-
-	output = (t_philo *)malloc(sizeof(t_philo) * info->num_of_philo); 
-	i = 0;
-	while(i < info->num_of_philo)
-	{
-		pthread_create((output + i)->tid, NULL, actions, info);
-		output->left_fork = i;
-		output->right_fork = (i + 1) % info->num_of_philo;
-		output->numbers_eat = 0;
-		++i;
-	}
-	return (output);
+	info = (t_info *)malloc(sizeof(t_info));
+	info->num_of_philo = ft_atoi(argv[1]);
+	info->time_to_die = ft_atoi(argv[2]);
+	info->time_to_eat = ft_atoi(argv[3]);
+	info->time_to_sleep = ft_atoi(argv[4]);
+	if(argc == 6)
+		info->number_of_must_eat = ft_atoi(argv[5]);
+	else
+		info->number_of_must_eat = -1;
+	info->init_time = get_current_time();
+	return (info);
 }
 
 int	*init_forks(t_info *info)
 {
-	int	*output;
+	int	*forks;
 	int	i;
 
-	output = (int *)malloc(sizeof(int) * info->num_of_philo);
+	forks = (int *)malloc(sizeof(int) * info->num_of_philo);
 	i = 0;
 	while(i < info->num_of_philo)
 	{
-		output[i] = 1;
+		forks[i] = 1;
 		++i;
 	}
-	return (output);
+	return (forks);
+}
+
+t_philo	*init_philos(t_data *data)
+{
+	t_philo	*philos;
+	pthread_mutex_t	mutex;
+	int		i;
+
+	pthread_mutex_init(&mutex, NULL);
+	philos = (t_philo *)malloc(sizeof(t_philo) * data->info->num_of_philo); 
+	i = 0;
+	while(i < data->info->num_of_philo)
+	{
+		pthread_create(&((philos + i)->tid), NULL, actions, (philos + i));
+		(philos + i)->left_fork = data->forks + i;
+		(philos + i)->right_fork = data->forks + (i + 1) % data->info->num_of_philo;
+		(philos + i)->numbers_eat = 0;
+		(philos + i)->mutex = &mutex;
+		++i;
+	}
+	return (philos);
 }
 
 t_data	*init_data(int argc, char **argv)
 {
-	data->info = init_info(argv);
-	data->philos = init_philos(data->info);
+	t_data	*data;
+
+	data = (t_data *)malloc(sizeof(t_data));
+	data->info = init_info(argc, argv);
+	data->philos = init_philos(data);
 	data->forks = init_forks(data->info);
+	return (data);
 }
