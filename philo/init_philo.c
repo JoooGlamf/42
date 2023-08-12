@@ -6,13 +6,13 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:31:34 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/11 17:30:09 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/12 20:56:53 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"philo.h"
 
-t_info	*init_info(int argc, char **argv)
+t_info	*set_info(int argc, char **argv)
 {
 	t_info	*info;
 
@@ -25,11 +25,11 @@ t_info	*init_info(int argc, char **argv)
 		info->number_of_must_eat = ft_atoi(argv[5]);
 	else
 		info->number_of_must_eat = -1;
-	info->init_time = get_current_time();
+	info->init_time = get_current_time_ms();
 	return (info);
 }
 
-int	*init_forks(t_info *info)
+int	*set_forks(t_info *info)
 {
 	int	*forks;
 	int	i;
@@ -44,34 +44,25 @@ int	*init_forks(t_info *info)
 	return (forks);
 }
 
-t_philo	*init_philos(t_data *data)
+t_philo	*init_philos(t_info *info, int *forks)
 {
-	t_philo	*philos;
+	t_philo			*philos;
 	pthread_mutex_t	mutex;
-	int		i;
+	int				i;
 
 	pthread_mutex_init(&mutex, NULL);
-	philos = (t_philo *)malloc(sizeof(t_philo) * data->info->num_of_philo); 
+	philos = (t_philo *)malloc(sizeof(t_philo) * info->num_of_philo); 
 	i = 0;
-	while(i < data->info->num_of_philo)
+	while(i < info->num_of_philo)
 	{
-		pthread_create(&((philos + i)->tid), NULL, actions, (philos + i));
-		(philos + i)->left_fork = data->forks + i;
-		(philos + i)->right_fork = data->forks + (i + 1) % data->info->num_of_philo;
-		(philos + i)->numbers_eat = 0;
 		(philos + i)->mutex = &mutex;
+		(philos + i)->info = info;
+		(philos + i)->left_fork = forks + i;
+		(philos + i)->right_fork = forks + (i + 1) % info->num_of_philo;
+		(philos + i)->numbers_eat = 0;
+		(philos + i)->last_eat_time = 0;
+		pthread_create(&((philos + i)->tid), NULL, actions, (philos + i));
 		++i;
 	}
 	return (philos);
-}
-
-t_data	*init_data(int argc, char **argv)
-{
-	t_data	*data;
-
-	data = (t_data *)malloc(sizeof(t_data));
-	data->info = init_info(argc, argv);
-	data->philos = init_philos(data);
-	data->forks = init_forks(data->info);
-	return (data);
 }

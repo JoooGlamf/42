@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:11:44 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/11 17:29:21 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/12 21:00:44 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,26 @@ typedef struct	s_info
 
 typedef struct	s_philo
 {
-	pthread_t	tid;
-	int			*left_fork;
-	int			*right_fork;
-	int			numbers_eat;
+	pthread_t		tid;
 	pthread_mutex_t	*mutex;
+	t_info			*info;
+	int				*left_fork;
+	int				*right_fork;
+	int				numbers_eat;
+	long long		last_eat_time;
 }	t_philo;
 
-typedef struct	s_data
-{
-	t_info	*info;
-	t_philo	*philos;
-	int		*forks;
-}	t_data;
-
 //init_philo.c
-t_info		*init_info(int argc, char **argv);
-int			*init_forks(t_info *info);
-t_philo		*init_philos(t_data *data);
-t_data		*init_data(int argc, char **argv);
+t_info		*set_info(int argc, char **argv);
+int			*set_forks(t_info *info);
+t_philo		*init_philos(t_info *info, int *forks);
 
 //philo_utils.c
-long long	get_current_time();
-long long	get_running_time(int start_time);
+long long	convert_time_ms(struct timeval time);
+long long	get_current_time_ms();
+long long	get_running_time_ms(long long init_time_ms);
 int			ft_atoi(const char *str);
 
 //philo_actions.c
-void	*actions(void *philo);
+void	*actions(void *void_philo);
 #endif

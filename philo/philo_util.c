@@ -6,30 +6,39 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:18:09 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/11 15:14:28 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/12 20:52:33 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"philo.h"
 
-long long	get_current_time()
+long long	convert_time_ms(struct timeval time)
 {
-	struct timeval	time;
-	int				current_time;
+	int	ms;
 
-	gettimeofday(&time, NULL);
-	current_time = time.tv_usec / 1000;
-	return (current_time);
+	ms = time.tv_sec * 1000;
+	ms += time.tv_usec / 1000;
+	return (ms);
 }
 
-long long	get_running_time(int start_time)
+long long	get_current_time_ms()
 {
 	struct timeval	current_time;
-	int				running_time;
+	long long		current_time_ms;
 
 	gettimeofday(&current_time, NULL);
-	running_time = current_time.tv_usec / 1000 - start_time;
-	return (running_time);
+	current_time_ms = convert_time_ms(current_time);
+	return (current_time_ms);
+}
+
+long long	get_running_time_ms(long long init_time_ms)
+{
+	long long	current_time_ms;
+	long long	running_time_ms;
+
+	current_time_ms = get_current_time_ms();
+	running_time_ms = current_time_ms - init_time_ms;
+	return (running_time_ms);
 }
 
 int	ft_atoi(const char *str)
