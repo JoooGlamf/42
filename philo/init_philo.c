@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:31:34 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/12 20:56:53 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/13 18:00:23 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,18 @@ int	*set_forks(t_info *info)
 t_philo	*init_philos(t_info *info, int *forks)
 {
 	t_philo			*philos;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	*mutex;
 	int				i;
 
-	pthread_mutex_init(&mutex, NULL);
+	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(mutex, NULL);
 	philos = (t_philo *)malloc(sizeof(t_philo) * info->num_of_philo); 
 	i = 0;
 	while(i < info->num_of_philo)
 	{
-		(philos + i)->mutex = &mutex;
+		(philos + i)->mutex = mutex;
 		(philos + i)->info = info;
+		(philos + i)->philo_num = i;
 		(philos + i)->left_fork = forks + i;
 		(philos + i)->right_fork = forks + (i + 1) % info->num_of_philo;
 		(philos + i)->numbers_eat = 0;

@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:11:44 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/12 21:00:44 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/13 17:40:41 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_philo
 	pthread_t		tid;
 	pthread_mutex_t	*mutex;
 	t_info			*info;
+	int				philo_num;
 	int				*left_fork;
 	int				*right_fork;
 	int				numbers_eat;
@@ -52,4 +53,7 @@ int			ft_atoi(const char *str);
 
 //philo_actions.c
 void	*actions(void *void_philo);
+int		think_philo(t_philo *philo);
+int		eat_philo(t_philo *philo);
+int		sleep_philo(t_philo *philo);
 #endif

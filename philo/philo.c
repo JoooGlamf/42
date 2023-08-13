@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:12:43 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/12 20:57:32 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/13 17:41:45 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ int	end_philo(t_info *info, t_philo *philos)
 	i = 0;
 	while(i < info->num_of_philo)
 	{
-		if(pthread_join((philos + i)->tid, NULL))
-			return (-1);
-		printf("%d\n", i);
+		pthread_join((philos + i)->tid, NULL);
+		++i;
 	}
 	if(pthread_mutex_destroy(philos->mutex))
 		return (-1);
