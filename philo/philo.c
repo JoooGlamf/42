@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:12:43 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/13 17:41:45 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/14 04:46:59 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,39 @@ int	check_argv(int argc, char **argv)
 	return (1);
 }
 
-int	end_philo(t_info *info, t_philo *philos)
+int	end_philos(t_data *datas, pthread_t *philos)
 {
+	int	num_of_philo;
 	int	i;
+
+	num_of_philo = datas->argv->num_of_philo;
 	i = 0;
-	while(i < info->num_of_philo)
+	while(i < num_of_philo)
 	{
-		pthread_join((philos + i)->tid, NULL);
+		pthread_join(philos[i], NULL);
 		++i;
 	}
-	if(pthread_mutex_destroy(philos->mutex))
-		return (-1);
-
+	i = 0;
+	while(i < num_of_philo)
+	{
+		pthread_mutex_destroy(datas->mutexes + i);
+		++i;
+	}
+	free(philos);
+	free(datas->argv);
+	free(datas->mutexes);
+	free(datas->forks);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_philo	*philos;
-	int		*forks;
-	t_info	*info;
+	pthread_t		*philos;
+	t_data			*datas;
 
-	if(!check_argv(argc, argv))
-		return(return_error(1, "arguments error!"));
-	info = set_info(argc, argv);
-	forks = set_forks(info);
-	philos = init_philos(info, forks);	
-	end_philo(info,  philos);
+	datas = init_datas(argc, argv);
+	philos = init_philos(datas);
+	end_philos(datas, philos);
 }
+
+	

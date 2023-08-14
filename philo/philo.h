@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:11:44 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/13 17:40:41 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/14 04:36:57 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,34 @@
 #include<pthread.h>
 #include<sys/time.h>
 
-typedef struct	s_info
+typedef struct	s_argv	
 {
 	int			num_of_philo;
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			number_of_must_eat;
-	long long	init_time;
-}	t_info;
+}	t_argv;
 
-typedef struct	s_philo
+typedef struct	s_data
 {
-	pthread_t		tid;
-	pthread_mutex_t	*mutex;
-	t_info			*info;
+	t_argv			*argv;
+	pthread_mutex_t	*mutexes;
+	int				*forks;
 	int				philo_num;
-	int				*left_fork;
-	int				*right_fork;
+	//int				*left_fork;
+	//int				*right_fork;
 	int				numbers_eat;
+	long long		init_time;
 	long long		last_eat_time;
-}	t_philo;
+}	t_data;
 
 //init_philo.c
-t_info		*set_info(int argc, char **argv);
-int			*set_forks(t_info *info);
-t_philo		*init_philos(t_info *info, int *forks);
+t_argv			*init_argv(int argc, char **argv);
+int				*init_forks(t_argv *argv);
+pthread_mutex_t	*init_mutexes(t_argv *argv);
+t_data			*init_datas(int argc, char **argv);
+pthread_t		*init_philos(t_data *data);
 
 //philo_utils.c
 long long	convert_time_ms(struct timeval time);
@@ -53,7 +55,7 @@ int			ft_atoi(const char *str);
 
 //philo_actions.c
 void	*actions(void *void_philo);
-int		think_philo(t_philo *philo);
-int		eat_philo(t_philo *philo);
-int		sleep_philo(t_philo *philo);
+//int		think_philo(t_philo *philo);
+//int		eat_philo(t_philo *philo);
+//int		sleep_philo(t_philo *philo);
 #endif
