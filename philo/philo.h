@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:11:44 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/14 04:36:57 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/14 23:34:24 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,43 @@ typedef struct	s_argv
 	int			number_of_must_eat;
 }	t_argv;
 
+typedef struct	s_mutexes
+{
+	pthread_mutex_t *forks;
+	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*time_mutex;
+}	t_mutexes;
+
 typedef struct	s_data
 {
-	t_argv			*argv;
-	pthread_mutex_t	*mutexes;
-	int				*forks;
-	int				philo_num;
-	//int				*left_fork;
-	//int				*right_fork;
-	int				numbers_eat;
-	long long		init_time;
-	long long		last_eat_time;
+	t_argv		*argv;
+	t_mutexes	*mutexes;
+	int			philo_num;
+	int			numbers_eat;
+	long long	init_time;
+	long long	running_time;
+	long long	last_eat_time;
 }	t_data;
 
 //init_philo.c
-t_argv			*init_argv(int argc, char **argv);
-int				*init_forks(t_argv *argv);
-pthread_mutex_t	*init_mutexes(t_argv *argv);
-t_data			*init_datas(int argc, char **argv);
-pthread_t		*init_philos(t_data *data);
+t_argv		*init_argv(int argc, char **argv);
+int			*init_forks(t_argv *argv);
+t_mutexes	*init_mutexes(t_argv *argv);
+t_data		*init_data(int argc, char **argv);
+pthread_t	*init_philos(t_data *data);
 
 //philo_utils.c
 long long	convert_time_ms(struct timeval time);
 long long	get_current_time_ms();
-long long	get_running_time_ms(long long init_time_ms);
+long long	get_running_time_ms(pthread_mutex_t *time_mutex, long long init_time_ms);
+int			exact_sleep(long long sleep_time);
 int			ft_atoi(const char *str);
+int			locked_printf(pthread_mutex_t *mutex, long long time, int philo_num, char *status);
 
 //philo_actions.c
-void	*actions(void *void_philo);
-//int		think_philo(t_philo *philo);
-//int		eat_philo(t_philo *philo);
-//int		sleep_philo(t_philo *philo);
+void	*actions(void *void_data);
+void	think_action(t_data *data);
+void	eat_action_odd(t_data *data);
+void	eat_action_even(t_data *data);
+void	sleep_action(t_data *data);
 #endif

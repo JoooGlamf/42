@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:12:43 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/14 04:46:59 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/14 22:26:39 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	return_error(int code, char *message)
 {
-	printf("%s", message);
+	printf("%s\n", message);
 	return (code);
 }
 
@@ -24,7 +24,7 @@ int	check_argv(int argc, char **argv)
 	int	j;
 
 	if(argc != 5 && argc != 6)
-		return (0);
+		return (1);
 	i  = 1;
 	while(i < argc)
 	{
@@ -33,13 +33,13 @@ int	check_argv(int argc, char **argv)
 		{
 			if(argv[i][j] < '0' || argv[i][j] > '9')
 			{
-				return (0);
+				return (1);
 			}	
 			++j;
 		}
 		++i;
 	}
-	return (1);
+	return (0);
 }
 
 int	end_philos(t_data *datas, pthread_t *philos)
@@ -57,24 +57,28 @@ int	end_philos(t_data *datas, pthread_t *philos)
 	i = 0;
 	while(i < num_of_philo)
 	{
-		pthread_mutex_destroy(datas->mutexes + i);
+		pthread_mutex_destroy(datas->mutexes->forks + i);
 		++i;
 	}
+	pthread_mutex_destroy(datas->mutexes->print_mutex);
+	pthread_mutex_destroy(datas->mutexes->print_mutex);
 	free(philos);
 	free(datas->argv);
+	free(datas->mutexes->forks);
+	free(datas->mutexes->print_mutex);
+	free(datas->mutexes->time_mutex);
 	free(datas->mutexes);
-	free(datas->forks);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	pthread_t		*philos;
-	t_data			*datas;
+	t_data			*data;
 
-	datas = init_datas(argc, argv);
-	philos = init_philos(datas);
-	end_philos(datas, philos);
+	if(check_argv(argc, argv))
+		return (return_error(-1, "arguments error!"));
+	data = init_data(argc, argv);
+	philos = init_philos(data);
+	end_philos(data, philos);
 }
-
-	

@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:31:34 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/14 04:50:33 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/15 00:48:04 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,75 +28,65 @@ t_argv	*init_argv(int argc, char **argv)
 	return (structed_argv);
 }
 
-int	*init_forks(t_argv *argv)
+t_mutexes	*init_mutexes(t_argv *argv)
 {
-	int	*forks;
-	int	i;
+	t_mutexes	*mutexes;
+	int			i;
 
-	forks = (int *)malloc(sizeof(int) * argv->num_of_philo);
+	mutexes = (t_mutexes *)malloc(sizeof(t_mutexes));
+	mutexes->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * argv->num_of_philo);
+	mutexes->print_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	mutexes->time_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	i = 0;
 	while(i < argv->num_of_philo)
 	{
-		forks[i] = 1;
+		pthread_mutex_init(mutexes->forks + i, NULL);
 		++i;
 	}
-	return (forks);
-}
-
-pthread_mutex_t	*init_mutexes(t_argv *argv)
-{
-	pthread_mutex_t	*mutexes;
-	int				i;
-
-	mutexes = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * argv->num_of_philo);
-	i = 0;
-	while(i < argv->num_of_philo)
-	{
-		pthread_mutex_init(mutexes + i, NULL);
-		++i;
-	}
+	pthread_mutex_init(mutexes->print_mutex, NULL);
+	pthread_mutex_init(mutexes->time_mutex, NULL);
 	return (mutexes);
 }
 
-t_data	*init_datas(int argc, char **argv)
+t_data	*init_data(int argc, char **argv)
 {
-	t_data	*datas;
-	t_argv	*structed_argv;
-	pthread_mutex_t	*mutexes;
-	int		*forks;
-	int		i;
+	t_data		*data;
+	t_argv		*structed_argv;
+	t_mutexes	*mutexes;
+	int			i;
 
 	structed_argv = init_argv(argc, argv);
-	forks = init_forks(structed_argv);
 	mutexes = init_mutexes(structed_argv);
-	datas = (t_data *)malloc(sizeof(t_data) * structed_argv->num_of_philo);
+	data = (t_data *)malloc(sizeof(t_data) * structed_argv->num_of_philo);
 	i = 0;
 	while(i < structed_argv->num_of_philo)
 	{
-		(datas + i)->argv = structed_argv;
-		(datas + i)->mutexes = mutexes;
-		(datas + i)->philo_num = i;
-		(datas + i)->forks = forks;
-		//(datas + i)->left_fork = forks + i;
-		//(datas + i)->right_fork = forks + (i + 1) % info->num_of_philo;
-		(datas + i)->init_time = 0;
-		(datas + i)->last_eat_time = 0;
+		(data + i)->argv = structed_argv;
+		(data + i)->mutexes = mutexes;
+		(data + i)->numbers_eat = 0;
+		(data + i)->last_eat_time = 0;
+		(data + i)->running_time = 0;
 		++i;
 	}
-	return (datas);
+	return (data);
 }
 
-pthread_t	*init_philos(t_data *datas)
+pthread_t	*init_philos(t_data *data)
 {
 	pthread_t	*philos;
-	int				i;
+	long long	init_time;
+	int			i;
 
-	philos = (pthread_t *)malloc(sizeof(pthread_t) * datas->argv->num_of_philo);
+	philos = (pthread_t *)malloc(sizeof(pthread_t) * data->argv->num_of_philo);
 	i = 0;
-	while(i < datas->argv->num_of_philo)
+	init_time = get_current_time_ms();
+	while(i < data->argv->num_of_philo)
 	{
-		pthread_create(philos + i, NULL, actions, (void *)(datas + i));
+		(data + i)->philo_num = i;
+		(data + i)->init_time = init_time;
+		pthread_create(philos + i, NULL, actions, (void *)(data + i));
 		++i;
 	}
+
 	return (philos);
 }
