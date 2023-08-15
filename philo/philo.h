@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 20:11:44 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/14 23:34:24 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/16 00:27:06 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct	s_mutexes
 {
 	pthread_mutex_t *forks;
 	pthread_mutex_t	*print_mutex;
-	pthread_mutex_t	*time_mutex;
+	pthread_mutex_t	*died_mutex;
+	pthread_mutex_t	*last_eat_mutex;
 }	t_mutexes;
 
 typedef struct	s_data
@@ -41,8 +42,8 @@ typedef struct	s_data
 	int			philo_num;
 	int			numbers_eat;
 	long long	init_time;
-	long long	running_time;
 	long long	last_eat_time;
+	int			*died;
 }	t_data;
 
 //init_philo.c
@@ -55,10 +56,10 @@ pthread_t	*init_philos(t_data *data);
 //philo_utils.c
 long long	convert_time_ms(struct timeval time);
 long long	get_current_time_ms();
-long long	get_running_time_ms(pthread_mutex_t *time_mutex, long long init_time_ms);
+long long	get_running_time_ms(long long init_time_ms);
 int			exact_sleep(long long sleep_time);
 int			ft_atoi(const char *str);
-int			locked_printf(pthread_mutex_t *mutex, long long time, int philo_num, char *status);
+int			locked_printf(pthread_mutex_t *mutex, long long init_time, int philo_num, char *status);
 
 //philo_actions.c
 void	*actions(void *void_data);

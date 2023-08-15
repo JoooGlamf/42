@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:31:34 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/15 00:48:04 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/16 00:55:00 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,17 @@ t_mutexes	*init_mutexes(t_argv *argv)
 	mutexes = (t_mutexes *)malloc(sizeof(t_mutexes));
 	mutexes->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * argv->num_of_philo);
 	mutexes->print_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	mutexes->time_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	mutexes->died_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	mutexes->last_eat_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * argv->num_of_philo);
 	i = 0;
 	while(i < argv->num_of_philo)
 	{
 		pthread_mutex_init(mutexes->forks + i, NULL);
+		pthread_mutex_init(mutexes->last_eat_mutex + i, NULL);
 		++i;
 	}
 	pthread_mutex_init(mutexes->print_mutex, NULL);
-	pthread_mutex_init(mutexes->time_mutex, NULL);
+	pthread_mutex_init(mutexes->died_mutex, NULL);
 	return (mutexes);
 }
 
@@ -53,10 +55,13 @@ t_data	*init_data(int argc, char **argv)
 	t_data		*data;
 	t_argv		*structed_argv;
 	t_mutexes	*mutexes;
+	int			*died;
 	int			i;
 
 	structed_argv = init_argv(argc, argv);
 	mutexes = init_mutexes(structed_argv);
+	died = (int *)malloc(sizeof(int));
+	*died = 0;
 	data = (t_data *)malloc(sizeof(t_data) * structed_argv->num_of_philo);
 	i = 0;
 	while(i < structed_argv->num_of_philo)
@@ -65,7 +70,7 @@ t_data	*init_data(int argc, char **argv)
 		(data + i)->mutexes = mutexes;
 		(data + i)->numbers_eat = 0;
 		(data + i)->last_eat_time = 0;
-		(data + i)->running_time = 0;
+		(data + i)->died = died;
 		++i;
 	}
 	return (data);
@@ -87,6 +92,5 @@ pthread_t	*init_philos(t_data *data)
 		pthread_create(philos + i, NULL, actions, (void *)(data + i));
 		++i;
 	}
-
 	return (philos);
 }

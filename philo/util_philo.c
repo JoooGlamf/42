@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_util.c                                       :+:      :+:    :+:   */
+/*   util_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 13:18:09 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/14 23:57:16 by soojoo           ###   ########.fr       */
+/*   Created: 2023/08/15 20:08:08 by soojoo            #+#    #+#             */
+/*   Updated: 2023/08/16 03:24:13 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,23 @@ long long	get_current_time_ms()
 	return (current_time_ms);
 }
 
-long long	get_running_time_ms(pthread_mutex_t *time_mutex, long long init_time_ms)
+long long	get_running_time_ms(long long init_time_ms)
 {
 	long long	current_time_ms;
 	long long	running_time_ms;
 
 	current_time_ms = get_current_time_ms();
-	pthread_mutex_lock(time_mutex);
 	running_time_ms = current_time_ms - init_time_ms;
-	pthread_mutex_unlock(time_mutex);
 	return (running_time_ms);
 }
 
 int	exact_sleep(long long sleep_time)
 {
 	long long	start_time;
-	long long	current_time;
 
 	start_time = get_current_time_ms();
-	while(1)
+	while(start_time + sleep_time > get_current_time_ms())
 	{
-		current_time = get_current_time_ms();
-		if(current_time - start_time>= sleep_time)
-			break;
 		usleep(10);
 	}
 	return (0);
@@ -87,12 +81,14 @@ int	ft_atoi(const char *str)
 	return (str_int);
 }
 
-int	locked_printf(pthread_mutex_t *mutex, long long time, int philo_num, char *status)
+int	locked_printf(pthread_mutex_t *mutex, long long init_time, int philo_num, char *status)
 {
-	int	output;
+	int			output;
+	long long	running_time;
 
 	pthread_mutex_lock(mutex);
-	output = printf("%lld_in_ms %d %s\n", time, philo_num, status);
+	running_time = get_running_time_ms(init_time);
+	output = printf("%lld_in_ms %d %s\n", running_time, philo_num, status);
 	pthread_mutex_unlock(mutex);
 	return (output);
 }

@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 23:57:04 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/15 00:47:13 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/16 04:30:12 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,43 +46,42 @@ void	*actions(void *void_data)
 
 void	think_action(t_data *data)
 {
-	data->running_time = get_running_time_ms(data->mutexes->time_mutex, data->init_time);
-	locked_printf(data->mutexes->print_mutex, data->running_time, data->philo_num, "is thinking");
+	locked_printf(data->mutexes->print_mutex, data->init_time, data->philo_num, "is thinking");
 }
 
 void	eat_action_odd(t_data *data)
 {
 	pthread_mutex_lock(data->mutexes->forks + data->philo_num);
 	pthread_mutex_lock(data->mutexes->forks + (data->philo_num + 1) % data->argv->num_of_philo);
-	data->running_time = get_running_time_ms(data->mutexes->time_mutex, data->init_time);
-	locked_printf(data->mutexes->print_mutex, data->running_time, data->philo_num, "has taken a fork");
-	locked_printf(data->mutexes->print_mutex, data->running_time, data->philo_num, "is eating");
-	exact_sleep(data->argv->time_to_eat);
-	data->running_time = get_running_time_ms(data->mutexes->time_mutex, data->init_time);
-	data->last_eat_time = data->running_time;
+	locked_printf(data->mutexes->print_mutex, data->init_time, data->philo_num, "has taken a fork");
+	locked_printf(data->mutexes->print_mutex, data->init_time, data->philo_num, "is eating");
+	pthread_mutex_lock(data->mutexes->last_eat_mutex + data->philo_num);
+	data->last_eat_time = get_running_time_ms(data->init_time);
+	pthread_mutex_unlock(data->mutexes->last_eat_mutex + data->philo_num);
 	data->numbers_eat += 1;
+	exact_sleep(data->argv->time_to_eat);
 	pthread_mutex_unlock(data->mutexes->forks + data->philo_num);
 	pthread_mutex_unlock(data->mutexes->forks + (data->philo_num + 1) % data->argv->num_of_philo);
 }
 
 void	eat_action_even(t_data *data)
 {
-	exact_sleep(1);
+	usleep(100);
 	pthread_mutex_lock(data->mutexes->forks + (data->philo_num + 1) % data->argv->num_of_philo);
 	pthread_mutex_lock(data->mutexes->forks + data->philo_num);
-	data->running_time = get_running_time_ms(data->mutexes->time_mutex, data->init_time);
-	locked_printf(data->mutexes->print_mutex, data->running_time, data->philo_num, "has taken a fork");
-	locked_printf(data->mutexes->print_mutex, data->running_time, data->philo_num, "is eating");
-	exact_sleep(data->argv->time_to_eat);
-	data->last_eat_time = get_running_time_ms(data->mutexes->time_mutex, data->init_time);
+	locked_printf(data->mutexes->print_mutex, data->init_time, data->philo_num, "has taken a fork");
+	locked_printf(data->mutexes->print_mutex, data->init_time, data->philo_num, "is eating");
+	pthread_mutex_lock(data->mutexes->last_eat_mutex + data->philo_num);
+	data->last_eat_time = get_running_time_ms(data->init_time);
+	pthread_mutex_unlock(data->mutexes->last_eat_mutex + data->philo_num);
 	data->numbers_eat += 1;
+	exact_sleep(data->argv->time_to_eat);
 	pthread_mutex_unlock(data->mutexes->forks + (data->philo_num + 1) % data->argv->num_of_philo);
 	pthread_mutex_unlock(data->mutexes->forks + data->philo_num);
 }
 
 void	sleep_action(t_data *data)
 {
-	data->running_time = get_running_time_ms(data->mutexes->time_mutex, data->init_time);
-	locked_printf(data->mutexes->print_mutex, data->running_time, data->philo_num, "is sleeping");
+	locked_printf(data->mutexes->print_mutex, data->init_time, data->philo_num, "is sleeping");
 	exact_sleep(data->argv->time_to_sleep);
 }
