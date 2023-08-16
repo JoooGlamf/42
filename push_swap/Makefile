@@ -6,7 +6,7 @@
 #    By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/19 02:30:52 by soojoo            #+#    #+#              #
-#    Updated: 2023/07/23 15:48:06 by soojoo           ###   ########.fr        #
+#    Updated: 2023/08/16 04:49:06 by soojoo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ PUSH_SWAP_SRCS = \
 	pre_command.c \
 	push_swap.c \
 	select_number.c \
+	make_command.c \
 	sort.c \
 	stack1.c \
 	stack2.c

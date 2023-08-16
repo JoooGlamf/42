@@ -6,7 +6,7 @@
 /*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:17:11 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/16 10:15:08 by soojoo           ###   ########.fr       */
+/*   Updated: 2023/08/16 11:32:04 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	check_duplication(t_stack *stack)
 	}
 }
 
-void	check_align(t_stack *stack)
+int	check_align(t_stack *stack)
 {
 	int		i;
 	int		flag;
@@ -110,5 +110,5 @@ void	check_align(t_stack *stack)
 		++i;
 	}
 	if (flag)
-		exit(0);
+		return (1);
 }

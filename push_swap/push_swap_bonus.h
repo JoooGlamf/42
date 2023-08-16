@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soojoo <soojoo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soojoo <soojoo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 16:03:05 by soojoo            #+#    #+#             */
-/*   Updated: 2023/08/16 07:03:45 by soojoo           ###   ########.fr       */
+/*   Created: 2023/08/16 11:13:55 by soojoo            #+#    #+#             */
+/*   Updated: 2023/08/16 11:32:58 by soojoo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef PUSH_SWAP_BONUS_H
+# define PUSH_SWAP_BONUS_H
 
 # include<stdlib.h>
 # include<unistd.h>
 # include"ft_printf/ft_printf.h"
 # include"libft/libft.h"
+# include"get_next_line/get_next_line.h"
 
 typedef struct s_node
 {
@@ -80,7 +81,7 @@ void		err_exit(int exit_code, char *string);
 void		check_only_number(char *number);
 void		check_int(char *number);
 void		check_duplication(t_stack *stack);
-void		check_align(t_stack *stack);
+int			check_align(t_stack *stack);
 
 //sort.c
 void		push_b_except3(t_stack *stack_a, t_stack *stack_b);
@@ -108,10 +109,5 @@ void		ra_rrb(t_stack *stack_b, int a_command_count,
 				int i, t_info *command_info);
 void		rra_rb(t_stack *stack_b, int a_command_count,
 				int i, t_info *command_info);
-
-//push_swap.c
-t_stacks	*init_stacks(void);
-void		push_all(int argc, char **argv, t_stack *stack);
-void		reset_command_info(t_info *command_info);
 
 #endif
